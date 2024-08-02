@@ -5,12 +5,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(of = {"name"})
+@EqualsAndHashCode(of = {"email"})
 @Builder
-public class Film {
+public class User {
 	Long id;
+	String email;
+	String login;
 	String name;
-	String description;
-	String releaseDate;
-	int duration;
+	String birthday;
 }
