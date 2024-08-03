@@ -21,7 +21,7 @@ import java.util.Map;
 public class UserController {
 
 	private final Map<Long, User> users = new HashMap<>();
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu");
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	@GetMapping
 	public Collection<User> findAll() {

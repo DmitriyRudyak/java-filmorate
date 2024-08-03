@@ -20,8 +20,8 @@ import java.util.Map;
 public class FilmController {
 
 	private final Map<Long, Film> films = new HashMap<>();
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu");
-	private final LocalDate filmStartDate = LocalDate.parse("28.12.1895", formatter);
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private final LocalDate filmStartDate = LocalDate.parse("1895-12-28", formatter);
 
 	@GetMapping
 	public Collection<Film> findAll() {

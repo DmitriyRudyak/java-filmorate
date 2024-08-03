@@ -18,7 +18,7 @@ public class FilmControllerTest {
 		Film film1 = Film.builder()
 				.name("film1")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 		filmController.create(film1);
@@ -31,7 +31,7 @@ public class FilmControllerTest {
 		Film film1 = Film.builder()
 				.name("film1")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 
@@ -43,7 +43,7 @@ public class FilmControllerTest {
 		Film film1 = Film.builder()
 				.name("")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 
@@ -56,20 +56,20 @@ public class FilmControllerTest {
 		Film film1 = Film.builder()
 				.name("")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 		Film film2 = Film.builder()
 				.name("name2")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 		filmController.create(film2);
 		Film film3 = Film.builder()
 				.name("name2")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 
@@ -82,12 +82,12 @@ public class FilmControllerTest {
 		Film film1 = Film.builder()
 				.name("name1")
 				.description(new String(new char[201]).replace('\0', ' '))
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 		Film film2 = Film.builder()
 				.name("name2")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 
@@ -100,7 +100,7 @@ public class FilmControllerTest {
 		Film film1 = Film.builder()
 				.name("film1")
 				.description("description")
-				.releaseDate("10.10.1010")
+				.releaseDate("1010-10-10")
 				.duration(210)
 				.build();
 		Film film2 = Film.builder()
@@ -132,19 +132,19 @@ public class FilmControllerTest {
 		Film film1 = Film.builder()
 				.name("film1")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(0)
 				.build();
 		Film film2 = Film.builder()
 				.name("film1")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(-1)
 				.build();
 		Film film3 = Film.builder()
 				.name("film1")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.build();
 
 		Assertions.assertThrows(ConditionsNotMetException.class,() -> filmController.create(film1));
@@ -157,7 +157,7 @@ public class FilmControllerTest {
 		Film film1 = Film.builder()
 				.name("film1")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 		filmController.create(film1);
@@ -165,7 +165,7 @@ public class FilmControllerTest {
 				.id(1L)
 				.name("film2")
 				.description("description2")
-				.releaseDate("10.10.2020")
+				.releaseDate("2010-10-10")
 				.duration(220)
 				.build();
 
@@ -182,28 +182,28 @@ public class FilmControllerTest {
 		Film film1 = Film.builder()
 				.name("film1")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 		filmController.create(film1);
 		Film film2 = Film.builder()
 				.name("film2")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 		Film film3 = Film.builder()
 				.id(1L)
 				.name("film1")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 		Film film4 = Film.builder()
 				.id(10L)
 				.name("film10")
 				.description("description")
-				.releaseDate("10.10.2010")
+				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
 

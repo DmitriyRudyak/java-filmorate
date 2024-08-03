@@ -19,7 +19,7 @@ public class UserControllerTests {
 				.email("email@1")
 				.login("login1")
 				.name("name1")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		userController.create(user1);
 
@@ -32,7 +32,7 @@ public class UserControllerTests {
 				.email("email@1")
 				.login("login1")
 				.name("name1")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 
 		Assertions.assertDoesNotThrow(() -> userController.create(user1));
@@ -44,7 +44,7 @@ public class UserControllerTests {
 				.email("")
 				.login("login1")
 				.name("name1")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 
 		Assertions.assertThrows(NotFoundException.class,() -> userController.create(user1));
@@ -57,26 +57,26 @@ public class UserControllerTests {
 				.email("")
 				.login("login1")
 				.name("name1")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		User user2 = User.builder()
 				.email("email")
 				.login("login2")
 				.name("name2")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		User user3 = User.builder()
 				.email("email@3")
 				.login("login3")
 				.name("name3")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		userController.create(user3);
 		User user4 = User.builder()
 				.email("email@3")
 				.login("login4")
 				.name("name4")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 
 		Assertions.assertThrowsExactly(NotFoundException.class,() -> userController.create(user1));
@@ -90,13 +90,13 @@ public class UserControllerTests {
 				.email("email@1")
 				.login("")
 				.name("name1")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		User user2 = User.builder()
 				.email("email@2")
 				.login("login 1")
 				.name("name2")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 
 		Assertions.assertThrowsExactly(NotFoundException.class,() -> userController.create(user1));
@@ -109,7 +109,7 @@ public class UserControllerTests {
 				.email("email@1")
 				.login("login1")
 				.name("name1")
-				.birthday("10.10.3010")
+				.birthday("3010-10-10")
 				.build();
 		User user2 = User.builder()
 				.email("email@2")
@@ -128,7 +128,7 @@ public class UserControllerTests {
 				.email("email@1")
 				.login("login1")
 				.name("")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		userController.create(user1);
 		User userFromController = (userController.findAll()).iterator().next();
@@ -142,7 +142,7 @@ public class UserControllerTests {
 				.email("email@1")
 				.login("login1")
 				.name("name1")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		userController.create(user1);
 		User user2 = User.builder()
@@ -150,7 +150,7 @@ public class UserControllerTests {
 				.email("email@2")
 				.login("login2")
 				.name("name2")
-				.birthday("10.10.2020")
+				.birthday("2010-10-10")
 				.build();
 
 
@@ -168,28 +168,28 @@ public class UserControllerTests {
 				.email("email@1")
 				.login("login1")
 				.name("name1")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		userController.create(user1);
 		User user2 = User.builder()
 				.email("email@2")
 				.login("login2")
 				.name("name2")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		User user3 = User.builder()
 				.id(1L)
 				.email("email@1")
 				.login("login2")
 				.name("name2")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 		User user4 = User.builder()
 				.id(10L)
 				.email("email@4")
 				.login("login4")
 				.name("name4")
-				.birthday("10.10.2010")
+				.birthday("2010-10-10")
 				.build();
 
 		Assertions.assertThrowsExactly(NotFoundException.class,() -> userController.update(user2));
