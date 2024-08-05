@@ -2,14 +2,11 @@ package ru.yandex.practicum.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.ConditionsNotMetException;
 import ru.yandex.practicum.filmorate.exception.DuplicatedDataException;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.validator.FilmValidator;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,8 +17,7 @@ import java.util.Map;
 public class FilmController {
 
 	private final Map<Long, Film> films = new HashMap<>();
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	private final LocalDate filmStartDate = LocalDate.parse("1895-12-28", formatter);
+	private final FilmValidator validator = new FilmValidator();
 
 	@GetMapping
 	public Collection<Film> findAll() {
@@ -32,40 +28,7 @@ public class FilmController {
 	@PostMapping
 	public Film create(@RequestBody Film film) {
 		// проверяем выполнение необходимых условий
-		if (film.getName() == null || film.getName().isBlank()) {
-			log.error("Пустое поле name.");
-			throw new NotFoundException("Название фильма должно быть указано.");
-		}
-
-		if (films.containsValue(film)) {
-			log.error("Конфликт одинаковых фильмов.");
-			throw new DuplicatedDataException("Этот фильм уже находится в базе.");
-		}
-
-		try {
-			if (film.getDescription().length() > 200) {
-				log.error("Превышение лимита символов в описании.");
-				throw new ConditionsNotMetException("Описание фильма превышает 200 символов.");
-			}
-		} catch (NullPointerException e) {
-			log.error("Описание отсутствует.");
-			throw new NotFoundException("Описание фильма отсутствует.");
-		}
-
-		try {
-			if (LocalDate.parse(film.getReleaseDate(), formatter).isBefore(filmStartDate)) {
-				log.error("Указанная дата релиза фильма ошибочна.");
-				throw new ConditionsNotMetException("Укажите верную дату релиза фильма.");
-			}
-		} catch (DateTimeParseException | NullPointerException e) {
-			log.error("Дата релиза фильма отсутствует.");
-			throw new NotFoundException("Укажите дату релиза фильма.");
-		}
-
-		if (film.getDuration() <= 0) {
-			log.error("Продолжительность фильма ошибочна");
-			throw new ConditionsNotMetException("Продолжительность фильма должна быть указана верно.");
-		}
+		validator.validate(film, films);
 
 		// формируем дополнительные данные
 		film.setId(getNextId());
@@ -88,6 +51,9 @@ public class FilmController {
 				.forEach(user -> {
 					log.error("Данный фильм уже сохранен.");
 					throw new DuplicatedDataException("Данный фильм уже сохранен."); });
+
+		// проверяем выполнение необходимых условий
+		validator.validate(newFilm, films);
 
 		if (films.containsKey(newFilm.getId())) {
 			Film oldFilm = films.get(newFilm.getId());

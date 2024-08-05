@@ -81,7 +81,7 @@ public class FilmControllerTest {
 	void shouldThrowDescriptionErrors() {
 		Film film1 = Film.builder()
 				.name("name1")
-				.description(new String(new char[201]).replace('\0', ' '))
+				.description(new String(new char[201]).replace('\0', '*'))
 				.releaseDate("2010-10-10")
 				.duration(210)
 				.build();
@@ -124,7 +124,7 @@ public class FilmControllerTest {
 		Assertions.assertThrows(ConditionsNotMetException.class,() -> filmController.create(film1));
 		Assertions.assertThrows(NotFoundException.class,() -> filmController.create(film2));
 		Assertions.assertThrows(NotFoundException.class,() -> filmController.create(film3));
-		Assertions.assertThrows(NotFoundException.class,() -> filmController.create(film4));
+		Assertions.assertThrows(ConditionsNotMetException.class,() -> filmController.create(film4));
 	}
 
 	@Test

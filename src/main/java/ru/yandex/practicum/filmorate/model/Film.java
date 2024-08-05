@@ -8,9 +8,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(of = {"name"})
 @Builder
 public class Film {
-	Long id;
-	String name;
-	String description;
-	String releaseDate;
-	int duration;
+	protected Long id;
+	protected String name;
+	protected String description;
+	protected String releaseDate;
+	protected int duration;
 }

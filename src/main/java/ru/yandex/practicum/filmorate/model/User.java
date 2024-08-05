@@ -8,9 +8,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(of = {"email"})
 @Builder
 public class User {
-	Long id;
-	String email;
-	String login;
-	String name;
-	String birthday;
+	protected Long id;
+	protected String email;
+	protected String login;
+	protected String name;
+	protected String birthday;
 }
