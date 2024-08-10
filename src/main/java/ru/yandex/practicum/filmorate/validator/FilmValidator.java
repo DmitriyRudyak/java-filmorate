@@ -21,7 +21,7 @@ public class FilmValidator {
 	public void validate(Film film, Map<Long, Film> films) {
 		if (film.getName() == null || film.getName().isBlank()) {
 			log.error("Пустое поле name.");
-			throw new NotFoundException("Название фильма должно быть указано.");
+			throw new ConditionsNotMetException("Название фильма должно быть указано.");
 		}
 
 		if (films.containsValue(film)) {

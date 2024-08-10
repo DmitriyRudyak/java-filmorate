@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Set;
+
 @Data
 @EqualsAndHashCode(of = {"email"})
 @Builder
@@ -13,4 +15,5 @@ public class User {
 	protected String login;
 	protected String name;
 	protected String birthday;
+	private Set<Long> friends;
 }

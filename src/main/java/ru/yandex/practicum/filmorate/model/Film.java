@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Set;
+
 @Data
 @EqualsAndHashCode(of = {"name"})
 @Builder
@@ -13,4 +15,5 @@ public class Film {
 	protected String description;
 	protected String releaseDate;
 	protected int duration;
+	private Set<Long> likes;
 }
