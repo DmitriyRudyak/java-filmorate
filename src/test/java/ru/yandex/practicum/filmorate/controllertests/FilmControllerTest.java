@@ -52,7 +52,7 @@ public class FilmControllerTest {
 				.duration(210)
 				.build();
 
-		Assertions.assertThrows(NotFoundException.class,() -> filmController.create(film1));
+		Assertions.assertThrows(ConditionsNotMetException.class,() -> filmController.create(film1));
 		Assertions.assertEquals(0, filmController.findAll().size());
 	}
 
@@ -78,7 +78,7 @@ public class FilmControllerTest {
 				.duration(210)
 				.build();
 
-		Assertions.assertThrows(NotFoundException.class,() -> filmController.create(film1));
+		Assertions.assertThrows(ConditionsNotMetException.class,() -> filmController.create(film1));
 		Assertions.assertThrows(DuplicatedDataException.class,() -> filmController.create(film3));
 	}
 
