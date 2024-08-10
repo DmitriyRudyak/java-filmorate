@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.exception.ConditionsNotMetException;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
@@ -38,8 +37,14 @@ public class FilmService {
 				.orElseThrow(() -> new NotFoundException("Фильм с id " + filmId + " не найден"));
 
 		if (!film.getLikes().contains(userId)) {
-			throw new ConditionsNotMetException("У фильма с id " + filmId + " нет лайков от пользователя с id " + userId);
+			throw new NotFoundException("У фильма с id " + filmId + " нет лайков от пользователя с id " + userId);
 		}
+
+		if (userStorage.findUserById(userId).isEmpty()) {
+			log.error("Пользователь не найден.");
+			throw new NotFoundException("Пользователь с id " + userId + " не найден.");
+		}
+
 		film.getLikes().remove(userId);
 		log.info("У фильма с id {} удален like пользователя id {}.", filmId, userId);
 	}

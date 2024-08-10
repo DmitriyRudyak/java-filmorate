@@ -7,10 +7,7 @@ import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.validator.UserValidator;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -49,6 +46,7 @@ public class InMemoryUserStorage implements UserStorage {
 			user.setName(user.getLogin());
 		}
 		user.setId(getNextId());
+		user.setFriends(new HashSet<>());
 		// сохраняем новую публикацию в памяти приложения
 		users.put(user.getId(), user);
 		log.info("Пользователь сохранен.");

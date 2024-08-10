@@ -10,10 +10,10 @@ import java.util.Set;
 @EqualsAndHashCode(of = {"email"})
 @Builder
 public class User {
+	protected Set<Long> friends;
 	protected Long id;
 	protected String email;
 	protected String login;
 	protected String name;
 	protected String birthday;
-	private Set<Long> friends;
 }

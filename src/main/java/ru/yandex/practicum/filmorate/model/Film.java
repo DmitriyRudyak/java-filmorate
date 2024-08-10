@@ -10,10 +10,10 @@ import java.util.Set;
 @EqualsAndHashCode(of = {"name"})
 @Builder
 public class Film {
+	protected Set<Long> likes;
 	protected Long id;
 	protected String name;
 	protected String description;
 	protected String releaseDate;
 	protected int duration;
-	private Set<Long> likes;
 }

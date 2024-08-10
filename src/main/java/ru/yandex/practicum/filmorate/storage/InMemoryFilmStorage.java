@@ -7,10 +7,7 @@ import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.validator.FilmValidator;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -45,6 +42,7 @@ public class InMemoryFilmStorage implements FilmStorage {
 
 		// формируем дополнительные данные
 		film.setId(getNextId());
+		film.setLikes(new HashSet<>());
 		// сохраняем новую публикацию в памяти приложения
 		films.put(film.getId(), film);
 		log.info("Фильм сохранен.");
