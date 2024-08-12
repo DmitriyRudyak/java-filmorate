@@ -24,15 +24,10 @@ public class InMemoryUserStorage implements UserStorage {
 
 	@Override
 	public Optional<User> findUserById(Long id) {
-		try {
-			log.info("Пользователь получен.");
-			return users.values().stream()
+			return Optional.ofNullable(users.values().stream()
 					.filter(user -> user.getId().equals(id))
-					.findFirst();
-		} catch (RuntimeException e) {
-			log.error("Пользователь не найден.");
-			throw new NotFoundException("Пользователь с id " + id + " не найден.");
-		}
+					.findFirst()
+					.orElseThrow(() -> new NotFoundException("Пользователь с id " + id + " не найден.")));
 	}
 
 	@Override

@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserControllerTests {
 	private final InMemoryUserStorage userStorage = new InMemoryUserStorage();
-	private final UserController userController = new UserController(userStorage, new UserService(userStorage));
+	private final UserController userController = new UserController(new UserService(userStorage));
 
 	@Test
 	void shouldReturnUserCollection() {

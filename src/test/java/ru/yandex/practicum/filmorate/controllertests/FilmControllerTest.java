@@ -16,7 +16,7 @@ import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 public class FilmControllerTest {
 	private final InMemoryFilmStorage filmStorage = new InMemoryFilmStorage();
 	private final FilmService filmService = new FilmService(filmStorage, new InMemoryUserStorage());
-	private final FilmController filmController = new FilmController(filmStorage, filmService);
+	private final FilmController filmController = new FilmController(filmService);
 
 	@Test
 	void shouldReturnFilmCollection() {

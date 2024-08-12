@@ -2,25 +2,27 @@ package ru.yandex.practicum.filmorate.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Component
 public class FilmService {
 
 	private final FilmStorage filmStorage;
 	private final UserStorage userStorage;
+	private static final Comparator<Film> FILM_BY_LIKES_COMPARATOR =
+			Comparator.comparing(film -> film.getLikes().size(), Comparator.reverseOrder());
 
 	public void addLike(Long filmId, Long userId) {
 		userStorage.findUserById(userId)
@@ -50,11 +52,26 @@ public class FilmService {
 	}
 
 	public List<Film> getMostLiked(int count) {
-		Comparator<Film> comparator = Comparator.comparing(film -> film.getLikes().size(), Comparator.reverseOrder());
 		return filmStorage.findAll()
 				.stream()
-				.sorted(comparator)
+				.sorted(FILM_BY_LIKES_COMPARATOR)
 				.limit(count)
 				.collect(Collectors.toList());
+	}
+
+	public Collection<Film> findAll() {
+		return filmStorage.findAll();
+	}
+
+	public Optional<Film> findFilmById(Long id) {
+		return filmStorage.findFilmById(id);
+	}
+
+	public Film create(Film film) {
+		return filmStorage.create(film);
+	}
+
+	public Film update(Film newFilm) {
+		return filmStorage.update(newFilm);
 	}
 }
