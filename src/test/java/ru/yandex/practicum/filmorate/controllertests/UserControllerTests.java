@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.controllertests;
 
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,10 +9,16 @@ import ru.yandex.practicum.filmorate.exception.ConditionsNotMetException;
 import ru.yandex.practicum.filmorate.exception.DuplicatedDataException;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
+
+import java.util.Optional;
 
 @SpringBootTest
+@RequiredArgsConstructor
 public class UserControllerTests {
-	private final UserController userController = new UserController();
+	private final InMemoryUserStorage userStorage = new InMemoryUserStorage();
+	private final UserController userController = new UserController(new UserService(userStorage));
 
 	@Test
 	void shouldReturnUserCollection() {
@@ -196,4 +203,18 @@ public class UserControllerTests {
 		Assertions.assertThrowsExactly(DuplicatedDataException.class,() -> userController.update(user3));
 		Assertions.assertThrowsExactly(NotFoundException.class,() -> userController.update(user4));
 	}
+
+	@Test
+	void shouldReturnUserByID() {
+		User user1 = User.builder()
+				.email("email@1")
+				.login("login1")
+				.name("name1")
+				.birthday("2010-10-10")
+				.build();
+		userController.create(user1);
+
+		Assertions.assertEquals(Optional.of(user1), userController.findUserById(1L));
+	}
+
 }

@@ -8,10 +8,15 @@ import ru.yandex.practicum.filmorate.exception.ConditionsNotMetException;
 import ru.yandex.practicum.filmorate.exception.DuplicatedDataException;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 @SpringBootTest
 public class FilmControllerTest {
-	private final FilmController filmController = new FilmController();
+	private final InMemoryFilmStorage filmStorage = new InMemoryFilmStorage();
+	private final FilmService filmService = new FilmService(filmStorage, new InMemoryUserStorage());
+	private final FilmController filmController = new FilmController(filmService);
 
 	@Test
 	void shouldReturnFilmCollection() {
@@ -47,7 +52,7 @@ public class FilmControllerTest {
 				.duration(210)
 				.build();
 
-		Assertions.assertThrows(NotFoundException.class,() -> filmController.create(film1));
+		Assertions.assertThrows(ConditionsNotMetException.class,() -> filmController.create(film1));
 		Assertions.assertEquals(0, filmController.findAll().size());
 	}
 
@@ -73,7 +78,7 @@ public class FilmControllerTest {
 				.duration(210)
 				.build();
 
-		Assertions.assertThrows(NotFoundException.class,() -> filmController.create(film1));
+		Assertions.assertThrows(ConditionsNotMetException.class,() -> filmController.create(film1));
 		Assertions.assertThrows(DuplicatedDataException.class,() -> filmController.create(film3));
 	}
 
